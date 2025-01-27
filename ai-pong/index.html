@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Pong Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>AI Pong Challenge</h1>
+        <div class="game-stats">
+            <div class="score-box">
+                <span>Player: </span>
+                <span id="playerScore">0</span>
+            </div>
+            <div class="score-box">
+                <span>AI: </span>
+                <span id="aiScore">0</span>
+            </div>
+            <div class="ai-stats">
+                <span>AI Prediction Accuracy: </span>
+                <span id="aiAccuracy">0%</span>
+            </div>
+        </div>
+        <canvas id="gameCanvas"></canvas>
+        <div class="controls">
+            <button id="startBtn">Start Game</button>
+            <button id="resetBtn">Reset Game</button>
+            <select id="aiDifficulty">
+                <option value="easy">Easy AI</option>
+                <option value="medium">Medium AI</option>
+                <option value="hard">Hard AI</option>
+            </select>
+        </div>
+        <div class="instructions">
+            <h3>How to Play:</h3>
+            <p>Use your mouse or touch to move the left paddle up and down</p>
+            <p>Try to beat the AI by scoring 5 points first!</p>
+            <p>The AI learns from your play style and adapts its strategy</p>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
