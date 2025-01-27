@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Visualization Demo</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>AI Prediction Visualization</h1>
+        <div class="controls">
+            <button id="startBtn">Start AI Simulation</button>
+            <button id="resetBtn">Reset</button>
+            <select id="predictionType">
+                <option value="sine">Sine Wave Pattern</option>
+                <option value="random">Random Pattern</option>
+                <option value="trend">Trend Pattern</option>
+            </select>
+        </div>
+        <div class="chart-container">
+            <canvas id="aiChart"></canvas>
+        </div>
+        <div class="stats">
+            <div class="stat-box">
+                <h3>Confidence Score</h3>
+                <p id="confidenceScore">0%</p>
+            </div>
+            <div class="stat-box">
+                <h3>Predictions Made</h3>
+                <p id="predictionCount">0</p>
+            </div>
+            <div class="stat-box">
+                <h3>Pattern Type</h3>
+                <p id="patternType">-</p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
