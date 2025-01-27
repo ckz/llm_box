@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundamental Theorem of Calculus - Interactive Tutorial</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Understanding the Fundamental Theorem of Calculus</h1>
+            <div class="progress-bar">
+                <div id="progress" class="progress"></div>
+            </div>
+        </header>
+
+        <div class="content">
+            <section id="introduction" class="active">
+                <h2>Introduction</h2>
+                <p>The Fundamental Theorem of Calculus is one of the most important concepts in mathematics. It connects two big ideas:</p>
+                <ul>
+                    <li>Finding the area under a curve (integration)</li>
+                    <li>Finding the rate of change (differentiation)</li>
+                </ul>
+                <div class="interactive-element">
+                    <div id="basicGraph"></div>
+                    <div class="controls">
+                        <button onclick="showFunction('sin')">Sine Function</button>
+                        <button onclick="showFunction('quadratic')">Quadratic Function</button>
+                        <button onclick="showFunction('linear')">Linear Function</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="part1">
+                <h2>Part 1: The First Fundamental Theorem</h2>
+                <p>This part tells us that integration and differentiation are opposite operations.</p>
+                <div class="theorem-box">
+                    <p>If \(F(x)\) is an antiderivative of \(f(x)\), then:</p>
+                    <p class="formula">\[\int_a^b f(x)dx = F(b) - F(a)\]</p>
+                </div>
+                <div class="interactive-element">
+                    <div id="part1Graph"></div>
+                    <div class="slider-container">
+                        <label for="aValue">Point a:</label>
+                        <input type="range" id="aValue" min="0" max="10" value="2">
+                        <label for="bValue">Point b:</label>
+                        <input type="range" id="bValue" min="0" max="10" value="8">
+                    </div>
+                </div>
+            </section>
+
+            <section id="part2">
+                <h2>Part 2: The Second Fundamental Theorem</h2>
+                <p>This part shows how to find the derivative of an integral:</p>
+                <div class="theorem-box">
+                    <p>The derivative of a definite integral with respect to its upper limit is the integrand evaluated at that limit:</p>
+                    <p class="formula">\[\frac{d}{dx}\int_a^x f(t)dt = f(x)\]</p>
+                </div>
+                <div class="interactive-element">
+                    <div id="part2Graph"></div>
+                    <div class="controls">
+                        <button onclick="animateIntegral()">Show Animation</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="practice">
+                <h2>Practice Problems</h2>
+                <div class="problem-set">
+                    <div class="problem" id="problem1">
+                        <p>If \(f(x) = x^2\), find \(\int_0^2 f(x)dx\)</p>
+                        <div class="options">
+                            <button onclick="checkAnswer(1, 'A')">A) 8/3</button>
+                            <button onclick="checkAnswer(1, 'B')">B) 4</button>
+                            <button onclick="checkAnswer(1, 'C')">C) 8</button>
+                        </div>
+                        <div class="explanation" id="explanation1"></div>
+                    </div>
+                    <div class="problem" id="problem2">
+                        <p>If \(\frac{d}{dx}\int_0^x \sin(t)dt = \sin(x)\), what is \(\int_0^{\pi} \sin(x)dx\)?</p>
+                        <div class="options">
+                            <button onclick="checkAnswer(2, 'A')">A) 1</button>
+                            <button onclick="checkAnswer(2, 'B')">B) 2</button>
+                            <button onclick="checkAnswer(2, 'C')">C) 0</button>
+                        </div>
+                        <div class="explanation" id="explanation2"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="summary">
+                <h2>Summary</h2>
+                <div class="summary-box">
+                    <h3>Key Points to Remember:</h3>
+                    <ul>
+                        <li>Integration and differentiation are inverse operations</li>
+                        <li>The area under a curve can be found using antiderivatives</li>
+                        <li>The derivative of an integral gives back the original function</li>
+                    </ul>
+                </div>
+                <div class="quiz-score">
+                    <h3>Your Progress:</h3>
+                    <div id="scoreDisplay">0/2 Problems Completed</div>
+                    <button onclick="resetQuiz()">Try Again</button>
+                </div>
+            </section>
+        </div>
+
+        <div class="navigation">
+            <button id="prevBtn" onclick="navigate(-1)">Previous</button>
+            <button id="nextBtn" onclick="navigate(1)">Next</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
