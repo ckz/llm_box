@@ -1,0 +1,57 @@
+{
+    "planner_agent": {
+        "workflow_interval": 300,
+        "max_concurrent_tasks": 3,
+        "priority_levels": ["high", "medium", "low"]
+    },
+    "google_news_agent": {
+        "api_key": "",
+        "fetch_interval": 600,
+        "max_articles": 50,
+        "keywords": [
+            "finance",
+            "stock market",
+            "trading",
+            "economy",
+            "market analysis"
+        ],
+        "relevance_threshold": 0.6
+    },
+    "yahoo_finance_agent": {
+        "api_key": "",
+        "update_interval": 60,
+        "watched_symbols": [
+            "^GSPC",
+            "^DJI",
+            "^IXIC",
+            "^VIX"
+        ],
+        "shock_threshold": 2.0,
+        "market_indicators": [
+            "volume",
+            "price_change",
+            "volatility"
+        ]
+    },
+    "writer_agent": {
+        "max_article_length": 1500,
+        "min_article_length": 500,
+        "update_interval": 900,
+        "styles": [
+            "standard",
+            "brief",
+            "detailed"
+        ],
+        "sentiment_threshold": 0.3
+    },
+    "communication": {
+        "message_timeout": 30,
+        "retry_attempts": 3,
+        "batch_size": 10
+    },
+    "logging": {
+        "level": "INFO",
+        "file_path": "logs/agent_activity.log",
+        "rotation": "1 day"
+    }
+}
