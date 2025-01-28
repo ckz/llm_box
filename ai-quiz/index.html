@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development Quiz</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div id="quiz-container">
+            <h1>Web Development Quiz</h1>
+            <div class="quiz-info">
+                <p>Test your knowledge of:</p>
+                <ul>
+                    <li>React.js & Modern JavaScript</li>
+                    <li>Data Visualization (D3.js)</li>
+                    <li>3D Graphics (Three.js & WebGL)</li>
+                    <li>Machine Learning & AI</li>
+                </ul>
+            </div>
+            <div id="question-container" class="hide">
+                <div class="progress-bar">
+                    <div id="progress" class="progress"></div>
+                </div>
+                <p id="question"></p>
+                <div id="options-container"></div>
+            </div>
+            <div id="controls">
+                <button id="start-btn" class="btn">Start Quiz</button>
+                <button id="next-btn" class="btn hide">Next Question</button>
+            </div>
+            <div id="score-container" class="hide">
+                <h2>Quiz Complete!</h2>
+                <div class="score-details">
+                    <p>Your score: <span id="score">0</span>/<span id="total">0</span></p>
+                    <div class="score-message" id="score-message"></div>
+                </div>
+                <button id="restart-btn" class="btn">Try Again</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
