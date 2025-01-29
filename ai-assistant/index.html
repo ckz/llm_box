@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Assistant Showcase</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- Syntax highlighting for code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>AI Assistant Showcase</h1>
+            <div class="mode-selector">
+                <button class="mode-btn active" data-mode="chat">Chat</button>
+                <button class="mode-btn" data-mode="code">Code Assistant</button>
+                <button class="mode-btn" data-mode="knowledge">Knowledge Base</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="sidebar">
+                <div class="context-panel">
+                    <h3>Active Context</h3>
+                    <div class="context-display">
+                        <div class="memory-tokens">
+                            <span>Memory Usage:</span>
+                            <div class="token-bar">
+                                <div class="token-fill" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="history-panel">
+                    <h3>Conversation History</h3>
+                    <div class="history-list"></div>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="chat-container">
+                    <div class="messages"></div>
+                    <div class="input-area">
+                        <textarea 
+                            placeholder="Enter your message here..."
+                            rows="3"
+                            class="message-input"
+                        ></textarea>
+                        <button class="send-btn">Send</button>
+                    </div>
+                </div>
+
+                <div class="code-container hidden">
+                    <div class="code-editor">
+                        <pre><code class="language-javascript"></code></pre>
+                    </div>
+                    <div class="code-output"></div>
+                </div>
+
+                <div class="knowledge-container hidden">
+                    <div class="knowledge-search">
+                        <input type="text" placeholder="Search knowledge base...">
+                        <button class="search-btn">Search</button>
+                    </div>
+                    <div class="knowledge-results"></div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="status-bar">
+                <span class="connection-status">Connected</span>
+                <span class="model-info">Model: GPT-4</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-javascript.min.js"></script>
+    <script src="scripts/app.js" type="module"></script>
+</body>
+</html>
