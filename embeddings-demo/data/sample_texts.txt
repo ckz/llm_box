@@ -1,0 +1,15 @@
+Machine learning is a subset of artificial intelligence.
+AI systems can learn from experience and improve over time.
+Deep learning models use neural networks for pattern recognition.
+Natural language processing helps computers understand human language.
+Computer vision enables machines to interpret visual information.
+Reinforcement learning involves agents learning through trial and error.
+Neural networks are inspired by biological brain structures.
+Supervised learning uses labeled data for training models.
+Unsupervised learning finds patterns in unlabeled data.
+Transfer learning applies knowledge from one task to another.
+The future of AI looks promising and transformative.
+Artificial intelligence is changing how we live and work.
+Data science combines statistics and programming skills.
+Big data analytics helps discover meaningful patterns.
+Python is a popular programming language for AI development.
