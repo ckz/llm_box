@@ -54,8 +54,12 @@ def main():
     # Initialize vector store
     store = VectorStore()
     
+    # Get the absolute path to the sample texts
+    current_dir = os.path.dirname(__file__)
+    data_path = os.path.join(os.path.dirname(current_dir), 'data', 'sample_texts.txt')
+    
     # Read sample texts
-    with open('../data/sample_texts.txt', 'r') as f:
+    with open(data_path, 'r') as f:
         texts = f.read().splitlines()
     
     # Add texts to store

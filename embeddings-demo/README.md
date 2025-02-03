@@ -47,6 +47,19 @@ python src/vector_store.py     # Store and retrieve vectors
 python src/similarity_search.py # Perform similarity searches
 ```
 
+3. View the visualizations:
+```bash
+# Navigate to the src directory
+cd src
+
+# Start a simple HTTP server
+python -m http.server 8000
+
+# Open in your browser:
+# http://localhost:8000/embeddings_visualization.html
+# http://localhost:8000/similarity_heatmap.html
+```
+
 ## Key Concepts Demonstrated
 
 1. **Embedding Generation**

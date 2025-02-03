@@ -32,16 +32,21 @@ class TextEmbeddingDemo:
             title=title
         )
         
-        # Save the plot as HTML
-        fig.write_html("embeddings_visualization.html")
-        print("Visualization saved as 'embeddings_visualization.html'")
+        # Save the plot as HTML in the script's directory
+        output_path = os.path.join(os.path.dirname(__file__), "embeddings_visualization.html")
+        fig.write_html(output_path)
+        print(f"Visualization saved as '{output_path}'")
 
 def main():
     # Initialize the demo
     demo = TextEmbeddingDemo()
     
+    # Get the absolute path to the sample texts
+    current_dir = os.path.dirname(__file__)
+    data_path = os.path.join(os.path.dirname(current_dir), 'data', 'sample_texts.txt')
+    
     # Read sample texts
-    with open('../data/sample_texts.txt', 'r') as f:
+    with open(data_path, 'r') as f:
         texts = f.read().splitlines()
     
     # Generate embeddings
@@ -65,7 +70,7 @@ def main():
     print("\nCreating visualization...")
     demo.visualize_embeddings(embeddings, texts)
     
-    print("\nDemonstration completed! Check 'embeddings_visualization.html' for the visualization.")
+    print("\nDemonstration completed! Check the generated HTML file for the visualization.")
 
 if __name__ == "__main__":
     main()

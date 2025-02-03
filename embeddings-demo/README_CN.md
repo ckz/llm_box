@@ -48,6 +48,19 @@ python src/vector_store.py     # 存储和检索向量
 python src/similarity_search.py # 执行相似度搜索
 ```
 
+3. 查看可视化结果:
+```bash
+# 进入src目录
+cd src
+
+# 启动简单的HTTP服务器
+python -m http.server 8000
+
+# 在浏览器中打开:
+# http://localhost:8000/embeddings_visualization.html
+# http://localhost:8000/similarity_heatmap.html
+```
+
 ## 演示的核心概念
 
 1. **嵌入向量生成**

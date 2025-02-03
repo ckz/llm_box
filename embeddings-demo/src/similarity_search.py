@@ -4,6 +4,7 @@ from vector_store import VectorStore
 import pandas as pd
 import plotly.express as px
 from sklearn.metrics.pairwise import cosine_similarity
+import os
 
 class SimilaritySearchDemo:
     def __init__(self):
@@ -58,9 +59,10 @@ class SimilaritySearchDemo:
         # Add text labels
         fig.update_traces(text=np.round(similarity_matrix, 2), texttemplate="%{text}")
         
-        # Save visualization
-        fig.write_html("similarity_heatmap.html")
-        print("Heatmap saved as 'similarity_heatmap.html'")
+        # Save visualization in the script's directory
+        output_path = os.path.join(os.path.dirname(__file__), "similarity_heatmap.html")
+        fig.write_html(output_path)
+        print(f"Heatmap saved as '{output_path}'")
     
     def semantic_clustering(self, embeddings, texts, n_neighbors=3):
         """Find semantic clusters in the texts."""
@@ -86,9 +88,13 @@ def main():
     # Initialize demo
     demo = SimilaritySearchDemo()
     
+    # Get the absolute path to the sample texts
+    current_dir = os.path.dirname(__file__)
+    data_path = os.path.join(os.path.dirname(current_dir), 'data', 'sample_texts.txt')
+    
     # Load and index texts
     print("Loading and indexing texts...")
-    texts, embeddings = demo.load_and_index_texts('../data/sample_texts.txt')
+    texts, embeddings = demo.load_and_index_texts(data_path)
     
     # Find similar pairs
     print("\nFinding similar text pairs...")
