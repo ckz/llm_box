@@ -7,10 +7,10 @@ import yfinance as yf
 from serpapi.google_search import GoogleSearch
 
 #从 OPENROUTER 获取到的API KEY做测试：
-api_key="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"
+api_key="sk-or-v1-0e0457519496ecbe2294cdcb234df9a6c55dc3666249e3abf437outdated"
 
 #从 SERPAPI 获取到的API KEY做测试：（每月免费搜索100次）
-SERPAPI_KEY = "1b7dcd7bba5426fd30a6f2baba427d41d6c17dd85fabaa136ff9ecb6110cb314"
+SERPAPI_KEY = "1b7dcd7bba5426fd30a6f2baba427d41d6c17dd85fabaa136ff9ecb6outdated"
 
 # Configure models
 config_list = [
