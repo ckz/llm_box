@@ -1,20 +1,18 @@
 import os
 from typing import List, Dict
-from langchain_community.embeddings import OpenAIEmbeddings
-from langchain_community.vectorstores import Chroma
+from langchain_openai import OpenAIEmbeddings, OpenAI
+from langchain_community.vectorstores import FAISS
 from langchain.schema import Document
-from langchain.chains import LLMChain
-from langchain_community.llms import OpenAI
 from langchain.prompts import PromptTemplate
+from operator import itemgetter
 import time
 from dotenv import load_dotenv
+import json
 import __main__
 __main__.__file__ = 'vector_search.py'
 
-# Load environment variables
 load_dotenv()
 
-# Sample data - clothing and furniture items
 sample_data = [
     Document(
         page_content="Blue cotton t-shirt with round neck",
@@ -41,7 +39,7 @@ sample_data = [
 class VectorSearchDemo:
     def __init__(self):
         self.embeddings = OpenAIEmbeddings()
-        self.db = Chroma.from_documents(
+        self.db = FAISS.from_documents(
             documents=sample_data,
             embedding=self.embeddings
         )
@@ -50,61 +48,49 @@ class VectorSearchDemo:
     def filtered_vector_search(self, query: str, filter_dict: Dict) -> List[Document]:
         """Perform filtered vector search"""
         start_time = time.time()
-        results = self.db.similarity_search(
-            query,
-            filter=filter_dict,
-            k=2
-        )
+        results = [doc for doc in self.db.similarity_search(query, k=4)
+                  if all(doc.metadata.get(k) == v for k, v in filter_dict.items())][:2]
         end_time = time.time()
         print(f"\nFiltered Vector Search Latency: {end_time - start_time:.4f} seconds")
         return results
 
     def self_query_vector_search(self, query: str) -> List[Document]:
         """Perform self-query vector search using LLM to parse filters"""
-        # Template to extract filters from natural language
-        template = """
-        Extract search filters from this query. Output as a Python dict with keys 'type', 'color', or 'material'.
-        Only include filters explicitly mentioned. If no filters mentioned, return empty dict.
-        
-        Query: {query}
-        
-        Output format example: {{"type": "clothing", "color": "blue"}}
-        """
+        template = """Extract search filters from this query. Output as a Python dict with keys 'type', 'color', or 'material'.
+Only include filters explicitly mentioned. If no filters mentioned, return empty dict.
+
+Query: {query}
+
+Output format example: {{"type": "clothing", "color": "blue"}}"""
         
         prompt = PromptTemplate(template=template, input_variables=["query"])
-        chain = LLMChain(llm=self.llm, prompt=prompt)
+        chain = prompt | self.llm | (lambda x: json.loads(x))
         
         start_time = time.time()
         # Get filters from LLM
-        filter_dict = eval(chain.run(query))
+        filter_dict = chain.invoke({"query": query})
         
         # Perform filtered search
-        results = self.db.similarity_search(
-            query,
-            filter=filter_dict,
-            k=2
-        )
+        results = [doc for doc in self.db.similarity_search(query, k=4)
+                  if all(doc.metadata.get(k) == v for k, v in filter_dict.items())][:2]
         end_time = time.time()
         print(f"\nSelf-Query Vector Search Latency: {end_time - start_time:.4f} seconds")
         return results
 
     def query_expansion_search(self, query: str) -> List[Document]:
         """Perform query expansion search"""
-        # Template for query expansion
-        template = """
-        Generate two alternative ways to express this search query. 
-        Keep it concise and semantically similar.
-        Format: original query | alternative 1 | alternative 2
-        
-        Query: {query}
-        """
+        template = """Generate two alternative ways to express this search query. 
+Keep it concise and semantically similar.
+Format: original query | alternative 1 | alternative 2
+
+Query: {query}"""
         
         prompt = PromptTemplate(template=template, input_variables=["query"])
-        chain = LLMChain(llm=self.llm, prompt=prompt)
+        chain = prompt | self.llm
         
         start_time = time.time()
         # Get expanded queries
-        expanded = chain.run(query).split("|")
+        expanded = chain.invoke({"query": query}).split("|")
         expanded = [q.strip() for q in expanded]
         
         # Combine results from all queries
@@ -123,7 +109,7 @@ class VectorSearchDemo:
                 
         end_time = time.time()
         print(f"\nQuery Expansion Search Latency: {end_time - start_time:.4f} seconds")
-        return unique_results[:2]  # Return top 2 results
+        return unique_results[:2]
 
 def main():
     demo = VectorSearchDemo()
