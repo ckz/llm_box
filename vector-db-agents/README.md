@@ -1,82 +1,81 @@
-# Vector Database Agents Demo
+# Vector Database Agent with ChromaDB
 
-This project demonstrates the integration of AI agents with vector databases (Qdrant) for efficient knowledge storage, retrieval, and updates. It showcases how to use vector embeddings for semantic search and knowledge management.
+This project demonstrates a simple knowledge agent that uses ChromaDB as its vector database for storing and retrieving information. It allows you to add documents, search for similar documents, and update existing documents.
 
-## Project Structure
-
-```
-vector-db-agents/
-├── requirements.txt      # Project dependencies
-├── vector_ops.py        # Core vector database operations
-├── knowledge_agent.py   # Knowledge management agent implementation
-└── README.md           # Project documentation
-```
+**This README.md assumes you have modified the original `vector_ops.py` file to use ChromaDB instead of Qdrant.**
 
 ## Prerequisites
 
-- Python 3.8+
-- Qdrant running locally (or accessible via network)
-- Required Python packages (listed in requirements.txt)
+*   Python 3.7+
+*   `chromadb`
+*   `python-dotenv`
+*   `sentence-transformers` (likely installed as a dependency of `chromadb`)
 
-## Setup Instructions
+## Installation
 
-1. Install Qdrant:
-   ```bash
-   # Using Docker
-   docker pull qdrant/qdrant
-   docker run -p 6333:6333 qdrant/qdrant
-   ```
+1.  Clone the repository:
 
-2. Create a virtual environment and install dependencies:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   pip install -r requirements.txt
-   ```
+    ```bash
+    git clone <repository_url>
+    cd vector-db-agents
+    ```
 
-3. Run the demo:
-   ```bash
-   python knowledge_agent.py
-   ```
+2.  **Important:** Update the `requirements.txt` file to include `chromadb`, `python-dotenv`, and remove any Qdrant-specific dependencies. It should look something like this:
 
-## Design Overview
+    ```
+    chromadb
+    python-dotenv
+    ```
 
-### Vector Database Operations (`vector_ops.py`)
+3.  Install the required packages:
 
-The `VectorDBOperations` class provides core functionality for interacting with the Qdrant vector database:
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-- **Initialization**: Sets up connection to Qdrant and creates a collection if it doesn't exist
-- **Embedding Generation**: Uses SentenceTransformer model to convert text into vector embeddings
-- **CRUD Operations**:
-  - Create: Add new documents with embeddings
-  - Read: Search for similar documents using cosine similarity
-  - Update: Modify existing documents while maintaining vector relationships
-  - Delete: (Not implemented but can be added as needed)
+## Usage
 
-### Knowledge Agent (`knowledge_agent.py`)
+### VectorDBOperations
 
-The `KnowledgeAgent` class builds upon the vector operations to provide a higher-level interface for knowledge management:
-
-- **Learning**: Adds new knowledge entries to the vector database with metadata
-- **Recall**: Retrieves relevant information based on semantic similarity
-- **Knowledge Updates**: Modifies existing knowledge while maintaining semantic relationships
-
-### Key Features
-
-1. **Semantic Search**: Uses vector embeddings to find semantically similar content rather than exact matches
-2. **Metadata Management**: Tracks additional information about knowledge entries
-3. **Efficient Updates**: Maintains document relationships while allowing content updates
-4. **Category Organization**: Supports categorization of knowledge entries
-
-## Usage Examples
-
-### Basic Usage
+The `VectorDBOperations` class provides the core functionality for interacting with the ChromaDB vector database.
 
 ```python
-from knowledge_agent import KnowledgeAgent
+from vector_ops import VectorDBOperations
 
-# Initialize agent
-agent = KnowledgeAgent()
+# Initialize the vector database operations
+db_ops = VectorDBOperations(collection_name="my_collection")
+
+# Add some documents
+doc1_id = db_ops.add_document(
+    "Machine learning is a subset of artificial intelligence",  # Document text
+    {"category": "AI", "source": "example"}  # Metadata (optional)
+)
+doc2_id = db_ops.add_document(
+    "ChromaDB is a vector database.",  # Document text
+    {"category": "Databases", "source": "example"}  # Metadata (optional)
+)
+
+# Search for similar documents
+query = "What is AI?"
+results = db_ops.search_similar(query, limit=3)
+
+print(f"Search results for: {query}")
+for result in results:
+    print(f"  Score: {result['score']}")
+    print(f"  Text: {result['text']}")
+    print(f"  Metadata: {result['metadata']}")
+    print("---")
+
+# Update a document
+db_ops.update_document(
+    doc1_id,  # ID of the document to update
+    "Machine learning is an application of artificial intelligence.",  # New document text
+    {"category": "AI", "source": "example", "updated": True}  # New metadata (optional)
+)
+
+# Search again to see updated document
+results = db_ops.search_similar(query, limit=3)
+
 
 # Add new knowledge
 doc_id = agent.learn(
@@ -135,6 +134,10 @@ agent.update_knowledge(
 ## Contributing
 
 Feel free to submit issues and enhancement requests!
+
+## License
+
+MIT License - feel free to use this code for your own projects!
 
 ## License
 
